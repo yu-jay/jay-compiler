@@ -3,6 +3,8 @@ package com.github.yu_jay.jay_compiler.act;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.log4j.Logger;
+
 import com.github.yu_jay.jay_compiler.er.CompileException;
 import com.github.yu_jay.jay_compiler.iter.ICompiler;
 import com.github.yu_jay.jay_compiler.iter.IFileChangeInfo;
@@ -34,10 +36,16 @@ public abstract class AbstractCompiler implements ICompiler {
 	
 	//状态锁
 	private Object statusLock = new Object();
+	
+	/**
+	 * 日志
+	 */
+	private static final Logger log = Logger.getLogger(AbstractCompiler.class);
 
 	@Override
 	public void compile(IFileChangeInfo fileChangeInfo) {
-		if(shouldCompile()) {
+		log.debug("fileChangeInfo: " + fileChangeInfo);
+		if(fileChangeInfo != null && shouldCompile()) {
 			executor.submit(() -> {
 				setStatus(CompilerStatus.BUSY);
 				loopDoCompile(fileChangeInfo);
@@ -51,12 +59,14 @@ public abstract class AbstractCompiler implements ICompiler {
 	 * @param fileChangeInfo
 	 */
 	private void loopDoCompile(IFileChangeInfo fileChangeInfo) {
+		log.debug("开始loop编译");
 		try {
 			doCompile(fileChangeInfo);
 		} catch (CompileException e) {
 			setStatus(CompilerStatus.IDLE);
 			//错误日志
-			e.printStackTrace();
+			log.error("loopDoCompile编译失败了");
+			//e.printStackTrace();
 		}
 		if(Boolean.TRUE == getRemain()) {
 			setRemain(Boolean.FALSE);
@@ -76,9 +86,12 @@ public abstract class AbstractCompiler implements ICompiler {
 	 */
 	private boolean shouldCompile() {
 		if(CompilerStatus.IDLE == getStatus()) {
+			log.debug("编译器空闲");
 			return true;
 		}else {
+			log.debug("编译器忙碌");
 			if(Boolean.FALSE == getRemain()) {
+				log.debug("无保留编译任务");
 				setRemain(Boolean.TRUE);
 			}
 		}

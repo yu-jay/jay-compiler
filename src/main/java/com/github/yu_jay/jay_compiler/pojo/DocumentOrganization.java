@@ -2,10 +2,10 @@ package com.github.yu_jay.jay_compiler.pojo;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
+
 import com.github.yu_jay.jay_compiler.iter.IFileChangeInfo;
 import com.github.yu_jay.jay_compiler.iter.IWebpackConfig;
-
-//import org.apache.log4j.Logger;
 
 /**
  * 构建文档组织结构，寻找合适的编译目标文件
@@ -14,7 +14,7 @@ import com.github.yu_jay.jay_compiler.iter.IWebpackConfig;
  */
 public class DocumentOrganization {
 	
-	//private final static Logger log = LogUtil.getLog(DocumentOrganization.class);
+	private final static Logger log = Logger.getLogger(DocumentOrganization.class);
 	
 	/**
 	 * webpack 配置项
@@ -55,18 +55,20 @@ public class DocumentOrganization {
 			projectPath = fileChangeInfo.getProjectLocation();
 			this.webpackConfig = webpackConfig;
 			String context = projectPath + webpackConfig.getContext();
-			//log.debug("context:" + context);
+			log.debug("context:" + context);
 			String location = fileChangeInfo.getFileLocation();
-			//log.debug("location:" + location);
+			log.debug("location:" + location);
 			String fileName = webpackConfig.getFileName();
-			//log.debug("fileName:" + fileName);
-			if(location.endsWith(fileName)) {
-				setValues(location);
-			}else {
-				String temp = location.replace(context, "");
-				String fix = temp.substring(0, temp.lastIndexOf("/"));
-				String paths = findPath(context, fix);
-				setValues(paths);
+			log.debug("fileName:" + fileName);
+			if(null != location) {
+				if(location.endsWith(fileName)) {
+					setValues(location);
+				}else {
+					String temp = location.replace(context, "");
+					String fix = temp.substring(0, temp.lastIndexOf("/"));
+					String paths = findPath(context, fix);
+					setValues(paths);
+				}
 			}
 		}
 	}
@@ -125,14 +127,14 @@ public class DocumentOrganization {
 	}
 	
 	private String findPath(String context, String sep) {
-		//log.debug("context:" + context);
-		//log.debug("sep:" + sep);
+		log.debug("context:" + context);
+		log.debug("sep:" + sep);
 		String path = context + sep + "/" + webpackConfig.getFileName();
 		File file = new File(path);
 		if(file.exists()) {
 			return path;
 		}
-		//log.debug(path + "不存在");
+		log.debug(path + "不存在");
 		if("".equals(sep)) {
 			return null;
 		}else {
@@ -141,7 +143,7 @@ public class DocumentOrganization {
 	}
 	
 	private void setValues(String path) {
-		//log.debug("path:" + path);
+		log.debug("path:" + path);
 		if(null != path) {
 			String temp = path.replace(projectPath + webpackConfig.getContext(), "");
 			String fix = temp.replace(webpackConfig.getFileName(), "");
@@ -157,10 +159,10 @@ public class DocumentOrganization {
 				webOutPath = webpackConfig.getWebFilePath() + ftemp;
 				outName = fix.substring(fix.lastIndexOf("/") + 1, fix.length()) + ".js";
 			}
-			//log.debug("entryPath:" + entryPath);
-			//log.debug("outPath:" + outPath);
-			//log.debug("outName:" + outName);
-			//log.debug("projectPath:" + projectPath);
+			log.debug("entryPath:" + entryPath);
+			log.debug("outPath:" + outPath);
+			log.debug("outName:" + outName);
+			log.debug("projectPath:" + projectPath);
 		}
 	}
 	
