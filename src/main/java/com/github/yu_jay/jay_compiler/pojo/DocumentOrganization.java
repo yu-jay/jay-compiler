@@ -117,14 +117,14 @@ public class DocumentOrganization {
 	 * 输出文件在web中的绝对位置
 	 * @return
 	 */
-	public String getWebAbsoluteOutFile() {
-		if(null != webOutPath 
-				&& null != outName) {
-			return webpackConfig.getWorkPath() + ".metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/" + 
-					webpackConfig.getRecentProjectName() + webOutPath + outName;
-		}
-		return null;
-	}
+//	public String getWebAbsoluteOutFile() {
+//		if(null != webOutPath 
+//				&& null != outName) {
+//			return webpackConfig.getWorkPath() + ".metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/" + 
+//					webpackConfig.getRecentProjectName() + webOutPath + outName;
+//		}
+//		return null;
+//	}
 	
 	private String findPath(String context, String sep) {
 		log.debug("context:" + context);

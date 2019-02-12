@@ -18,11 +18,6 @@ public interface IWebpackConfig extends IConfig {
 	String getWebFilePath();
 	
 	/**
-	 * 工作空间路径
-	 */
-	String getWorkPath();
-	
-	/**
 	 * 是否在编译完成后执行编译的后续任务，可选值：yes,no
 	 * @return
 	 */

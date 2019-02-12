@@ -9,6 +9,7 @@ import com.github.yu_jay.jay_common.utils.FileUtil;
 import com.github.yu_jay.jay_compiler.er.CompileException;
 import com.github.yu_jay.jay_compiler.iter.IFileChangeInfo;
 import com.github.yu_jay.jay_compiler.iter.IWebpackConfig;
+import com.github.yu_jay.jay_compiler.iter.IWorkPalce;
 import com.github.yu_jay.jay_compiler.pojo.DocumentOrganization;
 
 /**
@@ -24,6 +25,11 @@ public class WebpackJsCompiler extends AbstractCompiler {
 	private IWebpackConfig config = null;
 	
 	/**
+	 * 工作空间
+	 */
+	private IWorkPalce workPlace = null;
+	
+	/**
 	 * 日志
 	 */
 	private static final Logger log = Logger.getLogger(WebpackJsCompiler.class);
@@ -37,18 +43,63 @@ public class WebpackJsCompiler extends AbstractCompiler {
 
 	/**
 	 * 初始化编译器
-	 * @param config
+	 * @param config 配置
 	 */
 	public WebpackJsCompiler(IWebpackConfig config) {
 		init(config);
 	}
+	
+	/**
+	 * 构造方法
+	 * @param configPath 配置文件
+	 */
+	public WebpackJsCompiler(String configPath) {
+		init(configPath);
+	}
+	
+	/**
+	 * 构造方法
+	 * @param config 配置
+	 * @param workPlace 工作空间 为了使可以执行编译后动作
+	 */
+	public WebpackJsCompiler(IWebpackConfig config, IWorkPalce workPlace) {
+		init(config);
+		setWorkPlace(workPlace);
+	}
+	
+	/**
+	 * 构造方法
+	 * @param config 配置
+	 * @param workPlace 工作空间 为了使可以执行编译后动作
+	 */
+	public WebpackJsCompiler(String configPath, IWorkPalce workPlace) {
+		init(configPath);
+		setWorkPlace(workPlace);
+	}
 
 	/**
 	 * 初始化编译器
-	 * @param webpackConfig
+	 * @param webpackConfig webpack配置
 	 */
 	public void init(IWebpackConfig webpackConfig) {
 		this.config = webpackConfig;
+	}
+	
+	/**
+	 * 通过配置文件初始化编译器
+	 * @param configPath 配置文件
+	 */
+	public void init(String configPath) {
+		WebpackJsConfig config = new WebpackJsConfig(configPath);
+		init(config);
+	}
+	
+	/**
+	 * 设置工作空间
+	 * @param workPlace 工作空间
+	 */
+	public void setWorkPlace(IWorkPalce workPlace) {
+		this.workPlace = workPlace;
 	}
 
 	@Override
@@ -109,7 +160,11 @@ public class WebpackJsCompiler extends AbstractCompiler {
 	 * 执行后序收尾任务
 	 */
 	private void afterExecute(DocumentOrganization doc) throws CompileException {
-		String srcPath = doc.getWebAbsoluteOutFile();
+		if(null == workPlace) {
+			log.debug("workPlace:" + workPlace);
+			return;
+		}
+		String srcPath = workPlace.getWebAbsoluteOutFile(doc);
 		String sourcePath = doc.getAbsoluteOutFile();
 		log.info("sourcePath:" + doc.getAbsoluteOutFile());
 		log.info("srcPath:"+ srcPath);
