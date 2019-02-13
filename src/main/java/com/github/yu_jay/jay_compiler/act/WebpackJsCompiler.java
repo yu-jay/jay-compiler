@@ -101,6 +101,13 @@ public class WebpackJsCompiler extends AbstractCompiler {
 	public void setWorkPlace(IWorkPalce workPlace) {
 		this.workPlace = workPlace;
 	}
+	
+	/**
+	 * 获取配置文件
+	 */
+	public IWebpackConfig getConfig() {
+		return config;
+	}
 
 	@Override
 	protected void doCompile(IFileChangeInfo fileChangeInfo) throws CompileException {

@@ -37,6 +37,13 @@ public class FileChangeInfo implements IFileChangeInfo {
 	}
 
 	@Override
+	public String toString() {
+		return "FileChangeInfo [opearType=" + opearType + ", fileType=" + fileType + ", fileName=" + fileName
+				+ ", filePath=" + filePath + ", fileLocation=" + fileLocation + ", projectName=" + projectName
+				+ ", projectLocation=" + projectLocation + "]";
+	}
+
+	@Override
 	public FileChangeType getOpearType() {
 		return opearType;
 	}
