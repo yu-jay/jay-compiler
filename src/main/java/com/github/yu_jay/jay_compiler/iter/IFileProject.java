@@ -9,7 +9,7 @@ public interface IFileProject {
 
 	/**
 	 * 项目名
-	 * @return
+	 * @return 项目名
 	 */
 	String getProjectName();
 	
@@ -17,7 +17,7 @@ public interface IFileProject {
 	 * 项目绝对路径，
 	 * 例如(linux)：/home/jayu/codeRepository/compiler
 	 * 例如(window)：E:/codeRepository/compiler
-	 * @return
+	 * @return 项目路径
 	 */
 	String getProjectLocation();
 	

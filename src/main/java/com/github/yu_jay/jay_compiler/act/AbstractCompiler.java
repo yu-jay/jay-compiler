@@ -56,7 +56,7 @@ public abstract class AbstractCompiler implements ICompiler {
 	
 	/**
 	 * 接力执行编译任务
-	 * @param fileChangeInfo
+	 * @param fileChangeInfo 变化的文件信息
 	 */
 	private void loopDoCompile(IFileChangeInfo fileChangeInfo) {
 		log.debug("开始loop编译");
@@ -76,6 +76,8 @@ public abstract class AbstractCompiler implements ICompiler {
 
 	/**
 	 * 执行编译
+	 * @param fileChangeInfo 变化的文件信息
+	 * @throws CompileException 抛出编译异常
 	 */
 	protected abstract void doCompile(IFileChangeInfo fileChangeInfo) 
 			throws CompileException;

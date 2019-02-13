@@ -18,7 +18,7 @@ public class Judger {
 	/**
 	 * 检查webpack配置文件是否齐全
 	 * @param webpackConfig webpack配置
-	 * @return
+	 * @return 布尔值
 	 */
 	public static boolean checkConfig(IWebpackConfig webpackConfig) {
 		if(null != webpackConfig.getWebpackPrefix() 
@@ -38,7 +38,7 @@ public class Judger {
 	 * 核对项目名与配置的项目名是否一致
 	 * @param webpackConfig webpack配置
 	 * @param info 变化的文件信息
-	 * @return
+	 * @return 布尔值
 	 */
 	public static boolean checkProject(IWebpackConfig webpackConfig, IFileChangeInfo info) {
 		String projectName = webpackConfig.getProjectName();
@@ -58,7 +58,7 @@ public class Judger {
 	 * 判断文件变化信息是否匹配配置路径
 	 * @param webpackConfig webpack配置
 	 * @param info 变化文件信息
-	 * @return
+	 * @return 布尔值
 	 */
 	public static boolean mateContext(IWebpackConfig webpackConfig, IFileChangeInfo info) {
 		if(!"js".equals(info.getFileType())) {

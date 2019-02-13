@@ -47,8 +47,9 @@ public class DocumentOrganization {
 	private String outName = null;
 
 	/**
-	 * 根据文件变化对象生成文件机构对象
-	 * @param fileChangeInfo
+	 * 根据文件变化对象生成文件机构对象 
+	 * @param fileChangeInfo 变化的文件信息
+	 * @param webpackConfig webpack 配置
 	 */
 	public DocumentOrganization(IFileChangeInfo fileChangeInfo, IWebpackConfig webpackConfig) {
 		if(null != webpackConfig) {
@@ -75,7 +76,7 @@ public class DocumentOrganization {
 	
 	/**
 	 * 生成webpack 命令
-	 * @return
+	 * @return webpack 命令
 	 */
 	public String createWebpackCommand() {
 		if(null != entryPath 
@@ -90,7 +91,7 @@ public class DocumentOrganization {
 	
 	/**
 	 * 获取输出文件
-	 * @return
+	 * @return 文件名
 	 */
 	public String getOutFile() {
 		if(null != outPath 
@@ -102,7 +103,7 @@ public class DocumentOrganization {
 	
 	/**
 	 * 获取输出文件的绝对路径
-	 * @return
+	 * @return 输出文件的绝对路径
 	 */
 	public String getAbsoluteOutFile() {
 		if(null != projectPath 

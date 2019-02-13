@@ -69,7 +69,7 @@ public class WebpackJsCompiler extends AbstractCompiler {
 	
 	/**
 	 * 构造方法
-	 * @param config 配置
+	 * @param configPath 配置
 	 * @param workPlace 工作空间 为了使可以执行编译后动作
 	 */
 	public WebpackJsCompiler(String configPath, IWorkPalce workPlace) {
@@ -104,6 +104,7 @@ public class WebpackJsCompiler extends AbstractCompiler {
 	
 	/**
 	 * 获取配置文件
+	 * @return 配置文件
 	 */
 	public IWebpackConfig getConfig() {
 		return config;

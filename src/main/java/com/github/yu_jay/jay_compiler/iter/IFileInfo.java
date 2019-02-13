@@ -11,19 +11,19 @@ public interface IFileInfo {
 
 	/**
 	 * 文件操作类型
-	 * @return
+	 * @return 文件操作类型
 	 */
 	FileChangeType getOpearType();
 	
 	/**
 	 * 文件类型 例如：js
-	 * @return
+	 * @return 文件类型
 	 */
 	String getFileType();
 	
 	/**
 	 * 文件名 例如： test.js
-	 * @return
+	 * @return 文件名
 	 */
 	String getFileName();
 	
