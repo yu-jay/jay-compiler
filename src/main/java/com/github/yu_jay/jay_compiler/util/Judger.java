@@ -21,6 +21,9 @@ public class Judger {
 	 * @return 布尔值
 	 */
 	public static boolean checkConfig(IWebpackConfig webpackConfig) {
+		if(null == webpackConfig) {
+			return false;
+		}
 		if(null != webpackConfig.getWebpackPrefix() 
 				&& null != webpackConfig.getContext() 
 				&& null != webpackConfig.getOutPath() 
@@ -41,6 +44,14 @@ public class Judger {
 	 * @return 布尔值
 	 */
 	public static boolean checkProject(IWebpackConfig webpackConfig, IFileChangeInfo info) {
+		if(null == webpackConfig) {
+			log.debug("webpack配置：" + webpackConfig);
+			return false;
+		}
+		if(null == info) {
+			log.debug("变化的文件信息：" + info);
+			return false;
+		}
 		String projectName = webpackConfig.getProjectName();
 		if(null != projectName) {
 			String[] PNames = projectName.split("/");
@@ -61,6 +72,14 @@ public class Judger {
 	 * @return 布尔值
 	 */
 	public static boolean mateContext(IWebpackConfig webpackConfig, IFileChangeInfo info) {
+		if(null == webpackConfig) {
+			log.debug("webpack配置：" + webpackConfig);
+			return false;
+		}
+		if(null == info) {
+			log.debug("变化的文件信息：" + info);
+			return false;
+		}
 		if(!"js".equals(info.getFileType())) {
 			log.debug("只能编译js文件，现在文件类型：" + info.getFileType());
 			return false;
