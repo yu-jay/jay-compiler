@@ -115,6 +115,54 @@ public class DocumentOrganization {
 	}
 	
 	/**
+	 * 获取webpack配置
+	 * @return webpack配置
+	 */
+	public IWebpackConfig getWebpackConfig() {
+		return webpackConfig;
+	}
+
+	/**
+	 * 获取项目路径
+	 * @return 项目路径
+	 */
+	public String getProjectPath() {
+		return projectPath;
+	}
+
+	/**
+	 * 获取输入文件路径
+	 * @return 入口文件路径
+	 */
+	public String getEntryPath() {
+		return entryPath;
+	}
+
+	/**
+	 * 获取输出文件路径
+	 * @return 输出文件路径
+	 */
+	public String getOutPath() {
+		return outPath;
+	}
+
+	/**
+	 * 获取web输出路径
+	 * @return web 输出路径
+	 */
+	public String getWebOutPath() {
+		return webOutPath;
+	}
+
+	/**
+	 * 获取编译生成文件名
+	 * @return 编译生成文件名
+	 */
+	public String getOutName() {
+		return outName;
+	}
+
+	/**
 	 * 输出文件在web中的绝对位置
 	 * @return
 	 */

@@ -48,7 +48,9 @@ public abstract class AbstractCompiler implements ICompiler {
 		if(fileChangeInfo != null && shouldCompile()) {
 			executor.submit(() -> {
 				setStatus(CompilerStatus.BUSY);
+				log.debug("开始loop编译");
 				loopDoCompile(fileChangeInfo);
+				log.debug("结束loop编译");
 				setStatus(CompilerStatus.IDLE);
 			});
 		}
@@ -59,7 +61,6 @@ public abstract class AbstractCompiler implements ICompiler {
 	 * @param fileChangeInfo 变化的文件信息
 	 */
 	private void loopDoCompile(IFileChangeInfo fileChangeInfo) {
-		log.debug("开始loop编译");
 		try {
 			doCompile(fileChangeInfo);
 		} catch (CompileException e) {

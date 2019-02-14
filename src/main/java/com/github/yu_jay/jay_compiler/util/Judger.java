@@ -92,6 +92,7 @@ public class Judger {
 			}
 			log.debug("变化文件位置：" + info.getFileLocation());
 			log.debug("配置输入文件位置：" + info.getProjectLocation() + webpackConfig.getContext());
+			log.warn("变化文件位置与配置不匹配");
 			return false;
 		}
 		log.debug("没有变化的文件或信息不完整");

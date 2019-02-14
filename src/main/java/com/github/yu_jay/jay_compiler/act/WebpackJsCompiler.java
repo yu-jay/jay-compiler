@@ -155,6 +155,7 @@ public class WebpackJsCompiler extends AbstractCompiler {
 				log.debug("开始执行收尾任务");
 				//处理收尾工作  解决tomcat缓存问题
 				afterExecute(document);
+				log.debug("收尾任务执行完成");
 			}
 			
 		}else {
@@ -179,11 +180,11 @@ public class WebpackJsCompiler extends AbstractCompiler {
 		if(null != srcPath && null != sourcePath) {
 			File source = new File(sourcePath);
 			File src = new File(srcPath);
+			completeSrcPath(srcPath);
 			if(source.exists()) {
 				//复制文件到tomcat中 解决tomcat缓存问题
 				try {
 					FileUtil.copyFileUsingFileStreams(source, src);
-					throw new IOException();
 				} catch (IOException e) {
 					log.error("复制文件到tomcat中失败了,自动结束此次任务");
 					throw new CompileException("编译已完成，执行收尾任务失败");  //编译完成(退出此次编译任务)
@@ -192,6 +193,19 @@ public class WebpackJsCompiler extends AbstractCompiler {
 		}else {
 			log.error("编译已完成，执行收尾任务失败");
 			throw new CompileException("编译已完成，执行收尾任务失败");
+		}
+	}
+	
+	/**
+	 * 处理目标路径，如果目标路径没有则生成目录
+	 * @param path
+	 */
+	private void completeSrcPath(String path) {
+		int lasti = path.lastIndexOf("/");
+		String p = path.substring(0, lasti + 1);
+		File f = new File(p);
+		if(!f.exists()) {
+			f.mkdirs();
 		}
 	}
 
